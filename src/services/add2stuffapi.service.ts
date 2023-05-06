@@ -31,4 +31,14 @@ export class Add2stuffapiService {
       });
     })
   }
+
+  public getCategories(): Promise<any[]> {
+    return new Promise<any>((resolve) => {
+      this.http.get('http://localhost:2888/api/categories').subscribe((categories: any[]) => {
+        resolve(categories);
+      }, () => {
+        resolve([])
+      })
+    })
+  }
 }

@@ -10,8 +10,8 @@
     </div>
     <div fxLayout="row" *ngIf="adder_type.value === 'cards'">
       <mat-form-field appearance="fill" fxFlex.gt-md="400px">
-        <mat-label>Input</mat-label>
-        <input matInput [formControl]="control" [matAutocomplete]="auto" [ngModel]="current_card">
+        <mat-label>Enter Card Name</mat-label>
+        <input matInput [formControl]="card_control" [matAutocomplete]="auto" [ngModel]="current_card">
         <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectCard($event)">
           <mat-option *ngFor="let card of card_search | async" [value]="card">
             {{card}}
@@ -25,8 +25,19 @@
         <img class="mtg-card" src="{{selected_card.default_image}}" loading="eager">
       </div>
     </div>
+    <div fxLayout="row" *ngIf="adder_type.value === 'categories'">
+      <mat-form-field appearance="fill" fxFlex.gt-md="400px">
+        <mat-label>Enter Category</mat-label>
+        <input matInput [formControl]="cat_control" [matAutocomplete]="auto_cat" [ngModel]="current_cat">
+        <mat-autocomplete #auto_cat="matAutocomplete" (optionSelected)="selectCategory($event)">
+          <mat-option *ngFor="let category of filtered_categories | async" [value]="category">
+            {{category.name}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
   </div>
-  <div fxLayout="column">
+  <div fxLayout="column" *ngIf="adder_type.value === 'cards' && current_card != null">
     <mat-chip-grid class="mat-mdc-chip-set-stacked" fxFlex.gt-md="400px">
       <mat-chip-row>
         Test Chip
@@ -35,6 +46,5 @@
         </button>
       </mat-chip-row>
     </mat-chip-grid>
-
   </div>
 </div>
